@@ -19,6 +19,12 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
     
+    class Meta:
+        verbose_name_plural = 'categories'
+
+
+
+    
 class Media(models.Model):
 
     title = models.CharField(max_length=200)
@@ -31,3 +37,5 @@ class Media(models.Model):
     def __str__(self) -> str:
         return self.title
     
+    class Meta:
+        verbose_name_plural = 'media'
