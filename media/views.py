@@ -3,6 +3,11 @@ from .models import Media
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from .forms import SignUpForm
+
 def home(request):
     media = Media.objects.all()
 
@@ -40,5 +45,20 @@ def logout_user(request):
 
 
 def register_user(request):
-    
-    return render(request, 'register.html', {})
+    form = SignUpForm()
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, (f"Welcome to House of meme {username}"))
+            return redirect('home.html')
+        else:
+            messages.success(request, ("invalid credentials please fill again"))
+            return redirect('register.html')
+    else:
+        return render(request, 'register.html', {'form' : form})
