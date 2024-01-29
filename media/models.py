@@ -31,7 +31,7 @@ class Media(models.Model):
     type =  models.CharField(max_length=10)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
-    Media = models.FileField(upload_to='upload/media/')
+    media = models.FileField(upload_to='upload/media/')
     date_added = models.DateTimeField(default=datetime.datetime.today)
     
     def __str__(self) -> str:
