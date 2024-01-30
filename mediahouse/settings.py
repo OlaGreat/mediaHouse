@@ -13,9 +13,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+# import cloudinary
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -86,7 +91,12 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
 
-      'default': dj_database_url.config(
+    #   'default': dj_database_url.config(
+    #     default=os.getenv('DATABASE_URL', 'postgres://postgres:oladipupo@localhost:5432/postgres'),
+    #     conn_max_age=600
+    # )
+
+    'default': dj_database_url.config(
         default=os.getenv('DATABASE_URL'),
         conn_max_age=600
     )
@@ -144,6 +154,12 @@ if not DEBUG:
 
 #..................................................................................................................
 
+
+# cloudinary.config(
+#     cloud_name = 'dsh8iiocr',
+#     api_key = '532857475557839',
+#     api_secret = 'JCN5seOXKmE12RyJTDtmGs7F4fY'
+# )
 
 
 # Default primary key field type
