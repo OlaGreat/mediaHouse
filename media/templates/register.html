@@ -12,14 +12,23 @@
     </div>
 </header>
 
-<br><br><br>
-<form method="POST" action="{% url 'register' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <br><br>
-    <button type="submit" class="btn btn-secondary">
-        Register
-    </button>
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+
+        
+            <br><br><br>
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br><br>
+                <button type="submit" class="btn btn-secondary offset-md-3">
+                    Register
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>
 
 {% endblock  %}

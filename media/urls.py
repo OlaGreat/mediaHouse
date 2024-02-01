@@ -7,6 +7,6 @@ urlpatterns = [
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.register_user, name='register'),
-
-
+    # path('videos/', views.videos, name='video'),
+    path('category/<str:category>', views.category, name='category')
 ]
