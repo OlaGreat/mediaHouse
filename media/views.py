@@ -11,6 +11,7 @@ from .forms import SignUpForm
 
 
 def category(request, category):
+
     try:
         queryCategory = Category.objects.get(name=category)
         media = Media.objects.filter(category=queryCategory)
