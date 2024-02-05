@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,17 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # ----------------------------------------------------------------------------------------------------------------------------------
-SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-e+f@@+1xc7u^0a#xfq%%987@^=wgpbp7n%3*$@oj0sln7e@%k=')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
+x# SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'RENDER' not in os.environ
 DEBUG = True
 
 ALLOWED_HOSTS = []
 # ----------------------------------------------------------------------------------------------------------
-# RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-# if RENDER_EXTERNAL_HOSTNAME:
-#     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'media',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -137,18 +139,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 #FOR LOCAL DEVELOPMENT...............................................................................................................
-# STATIC_URL = 'static/'
+STATIC_URL = 'static/'
 STATICFILES_DIRS = ['static/']    
 
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
+# MEDIA_URL = 'media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
 #...................................................................................................................................
 
 #FOR REMOTE DEVELOPMENT.........................................................................................
-STATIC_URL = '/static/'
-if not DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATIC_URL = '/static/'
+# if not DEBUG:
+#     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 #..................................................................................................................
@@ -159,6 +161,24 @@ if not DEBUG:
 #     api_key = '532857475557839',
 #     api_secret = 'JCN5seOXKmE12RyJTDtmGs7F4fY'
 # )
+
+
+# AWS CONFIG
+AWS_ACCESS_KEY_ID = ('AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = ('AWS_SECRET_ACCESS')
+AWS_STORAGE_BUCKET_NAME = ('BUCKET_NAME')
+AWS_S3_REGION_NAME = ('S3_REGION_NAME')  # e.g., us-east-1
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
+
+# For serving static files directly from S3
+# AWS_S3_URL_PROTOCOL = 'https'
+# AWS_S3_USE_SSL = True
+# AWS_S3_VERIFY = True
+# https://mediahouseawsbucket.s3.eu-north-1.amazonaws.com/upload/media/Tgif2.mp4
+
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/upload/media/'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 
 
 # Default primary key field type
