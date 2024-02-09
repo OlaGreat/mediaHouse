@@ -28,6 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ----------------------------------------------------------------------------------------------------------------------------------
 SECRET_KEY = os.environ.get('SECRET_KEY', default='my secret key')
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'RENDER' not in os.environ
 DEBUG = True
@@ -156,11 +157,6 @@ STATICFILES_DIRS = ['static/']
 #..................................................................................................................
 
 
-# cloudinary.config(
-#     cloud_name = 'dsh8iiocr',
-#     api_key = '532857475557839',
-#     api_secret = 'JCN5seOXKmE12RyJTDtmGs7F4fY'
-# )
 
 
 # AWS CONFIG
@@ -174,7 +170,7 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazo
 # AWS_S3_URL_PROTOCOL = 'https'
 # AWS_S3_USE_SSL = True
 # AWS_S3_VERIFY = True
-# https://mediahouseawsbucket.s3.eu-north-1.amazonaws.com/upload/media/Tgif2.mp4
+
 
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/upload/media/'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
